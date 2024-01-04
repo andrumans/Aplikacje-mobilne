@@ -9,6 +9,8 @@ import android.widget.TextView;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
@@ -25,7 +27,14 @@ public class MainActivity extends AppCompatActivity {
         currentdate.setTextColor(Color.WHITE);
         currentdate.setText(formattedCurrentDate);
 
-        LocalDateTime now = LocalDateTime.now();
+        TextView currentime = findViewById(R.id.Currenttime);
+
+        ZoneId zoneId = ZoneId.of("Europe/Warsaw");
+        LocalDateTime now = LocalDateTime.now(zoneId);
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+        currentime.setText(formatter.format(now));
+        
         LocalDateTime newYear = LocalDateTime.of(now.getYear(), 12, 31, 23, 59, 59);
         Duration duration = Duration.between(now, newYear);
 
